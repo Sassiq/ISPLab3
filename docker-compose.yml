@@ -1,0 +1,33 @@
+version: "3.9"
+
+networks:
+    goldminenetwork:
+        name: goldminenetwork
+
+services:
+    minedb:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_DB: minedb
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: admin
+        networks:
+            - goldminenetwork
+        volumes:
+            - "pgdata:/var/lib/postgresql/data"
+
+    mine:
+        environment:
+            telegram_token: "1891373209:AAGTLW9Ryz0rFD--U-r7gfFQd2p2lZjFxb4"
+            url: "https://d89ef8746476.ngrok.io"
+        image: goldmine
+        restart: always
+        networks:
+            - goldminenetwork
+        depends_on:
+            - minedb
+        ports:
+            - "5000:5000"
+volumes:
+     pgdata:
