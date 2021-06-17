@@ -2,7 +2,7 @@ import os
 
 
 class Config(object):
-    SQLALCHEMY_DATABASE_URI = "postgresql://tg_bot:123@localhost:5432/GoldMine"
+    SQLALCHEMY_DATABASE_URI = "postgresql://admin:admin@minedb:5432/minedb"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
