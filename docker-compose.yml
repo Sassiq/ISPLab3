@@ -16,18 +16,24 @@ services:
             - goldminenetwork
         volumes:
             - "pgdata:/var/lib/postgresql/data"
+            
+    nginx:
+        image: sassiq/nginxconfigs
+        restart: always
+        networks:
+            - goldminenetwork
+        ports:
+            - "5000:1337"
 
     mine:
         environment:
-            telegram_token: "1891373209:AAGTLW9Ryz0rFD--U-r7gfFQd2p2lZjFxb4"
-            url: "https://d89ef8746476.ngrok.io"
-        image: goldmine
+            BOT_TOKEN: "1891373209:AAGTLW9Ryz0rFD--U-r7gfFQd2p2lZjFxb4"
+            WEBHOOK_URL: "https://fb1b52d810df.ngrok.io"
+        image: sassiq/goldminebot
         restart: always
         networks:
             - goldminenetwork
         depends_on:
             - minedb
-        ports:
-            - "5000:5000"
 volumes:
      pgdata:
