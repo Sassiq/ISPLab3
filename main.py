@@ -216,16 +216,21 @@ def get_workers():
 
 
 def buy_worker(name, user):
-    if user.balance_dollars < digger1_worker.price:
-        send_message("Please donate dollars or exchange them", user.id)
-    else:
-        for worker in user.gold_mine.diggers:
-            if worker.name == name:
-                user.balance_dollars -= digger1_worker.price
-                worker.count += 1
-                break
+    if name == "👷 Digger lvl.1":
+        if user.balance_dollars < digger1_worker.price:
+            send_message("Please donate dollars or exchange them", user.id)
+            return
+    elif name == "👷 Digger lvl.2":
+        if user.balance_dollars < digger2_worker.price:
+            send_message("Please donate dollars or exchange them", user.id)
+            return
+    for worker in user.gold_mine.diggers:
+        if worker.name == name:
+            user.balance_dollars -= worker.price
+            worker.count += 1
+            break
 
 
 x = threading.Thread(target=working_loop)
 x.start()
-flask_app.run()
+flask_app.run(host='0.0.0.0')
